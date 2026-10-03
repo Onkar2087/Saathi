@@ -1,0 +1,76 @@
+import type { Text } from "@/lib/i18n";
+
+export const scamIntro = {
+  en: "I will show you some messages. For each one, tell me: is it safe, or is it a scam?",
+  hi: "मैं आपको कुछ मैसेज दिखाऊँगा। हर एक के लिए बताइए: यह सुरक्षित है या धोखा?",
+};
+
+export type ScamCard = {
+  from: string;
+  body: Text;
+  isScam: boolean;
+  why: Text;
+};
+
+export const scamCards: ScamCard[] = [
+  {
+    from: "VK-SBIBNK",
+    body: {
+      en: "Dear customer, your KYC has expired. Your account will be BLOCKED today. Update now: http://sbi-kyc-update.co/verify",
+      hi: "प्रिय ग्राहक, आपका KYC खत्म हो गया है। आज आपका खाता बंद हो जाएगा। अभी अपडेट करें: http://sbi-kyc-update.co/verify",
+    },
+    isScam: true,
+    why: {
+      en: "Banks never send links to update KYC, and they never rush you. The scary word 'BLOCKED' and the strange link are tricks.",
+      hi: "बैंक कभी KYC के लिए लिंक नहीं भेजते और जल्दी नहीं मचाते। डराने वाला शब्द 'बंद' और अजीब लिंक धोखे की निशानी हैं।",
+    },
+  },
+  {
+    from: "Rohan",
+    body: {
+      en: "Dadi, I will come home on Sunday for lunch. Please make aloo paratha! ❤️",
+      hi: "दादी, मैं रविवार को खाने पर घर आऊँगा। आलू पराठा बनाना! ❤️",
+    },
+    isScam: false,
+    why: {
+      en: "This is from someone you know, and it doesn't ask for money, a code, or a link. It's safe.",
+      hi: "यह किसी जान-पहचान वाले का है, और इसमें पैसे, कोड या लिंक नहीं माँगा गया। यह सुरक्षित है।",
+    },
+  },
+  {
+    from: "+91 98xxx 21x07",
+    body: {
+      en: "Hi Mom, this is my new number. My phone broke. Please send ₹15,000 urgently to this UPI, I will explain later.",
+      hi: "हाय माँ, यह मेरा नया नंबर है। मेरा फ़ोन टूट गया। इस UPI पर जल्दी ₹15,000 भेज दो, बाद में बताऊँगा।",
+    },
+    isScam: true,
+    why: {
+      en: "A 'new number' asking for money urgently is a very common trick. Always call your child on their old number first.",
+      hi: "'नया नंबर' बताकर जल्दी पैसे माँगना बहुत आम धोखा है। हमेशा पहले बच्चे को उसके पुराने नंबर पर फ़ोन कीजिए।",
+    },
+  },
+  {
+    from: "AX-APOLLO",
+    body: {
+      en: "Your medicine order #4821 has been delivered. Thank you for shopping with us.",
+      hi: "आपका दवाई का ऑर्डर #4821 पहुँचा दिया गया है। हमारे साथ खरीदारी के लिए धन्यवाद।",
+    },
+    isScam: false,
+    why: {
+      en: "It's just information. It doesn't ask you to do anything, pay, or share a code.",
+      hi: "यह सिर्फ़ जानकारी है। इसमें कुछ करने, पैसे देने या कोड बताने को नहीं कहा गया।",
+    },
+  },
+  {
+    from: "+91 70xxx 55x12",
+    body: {
+      en: "Congratulations! You won ₹25 lakh in the KBC lottery. Share the OTP sent to your phone to claim your prize.",
+      hi: "बधाई हो! आपने KBC लॉटरी में ₹25 लाख जीते हैं। इनाम पाने के लिए अपने फ़ोन पर आया OTP बताइए।",
+    },
+    isScam: true,
+    why: {
+      en: "You can't win a lottery you never entered. And an OTP is like your house key — never share it with anyone.",
+      hi: "जिस लॉटरी में आपने हिस्सा ही नहीं लिया, उसे आप जीत नहीं सकते। और OTP आपके घर की चाबी जैसा है — इसे किसी को मत बताइए।",
+    },
+  },
+];
