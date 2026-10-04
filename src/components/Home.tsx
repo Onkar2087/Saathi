@@ -42,7 +42,12 @@ export function Home() {
         <Link href="/check" className="flex items-center justify-center gap-3 rounded-3xl bg-teal-600 p-5 text-2xl font-bold text-white shadow-sm">
           🔍 {t(ui.checkTitle, lang)}
         </Link>
+
+        <p className="rounded-3xl border-2 border-dashed border-teal-300 p-4 text-center text-lg text-slate-700">
+          🛠️ {t(ui.comingSoon, lang)}
+        </p>
       </main>
+      <footer className="px-5 pb-6 text-center text-base text-slate-500">Made with 🧡 by Onkar · © 2026</footer>
     </Shell>
   );
 }

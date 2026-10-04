@@ -12,5 +12,6 @@ export const helpNotes: { id: string; text: string }[] = [
   { id: "back-button", text: "The back arrow (usually at the top left, or the bottom of the phone) takes you to the previous screen. Pressing back is always safe and never deletes anything." },
   { id: "screen-share", text: "Never install apps like AnyDesk or TeamViewer because a caller asked. They let strangers control your phone." },
   { id: "links", text: "Do not tap links in messages from unknown numbers. Real banks and companies do not send prize or KYC links." },
+  { id: "fake-police", text: "Police, CBI or customs never arrest anyone over a phone or video call and never ask for money to close a case. A 'digital arrest' does not exist. Hang up, do not pay, and call family or 112." },
   { id: "balance", text: "Checking your balance in a UPI app is safe. It needs your PIN, but no money moves." },
 ];

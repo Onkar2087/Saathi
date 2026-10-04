@@ -58,6 +58,10 @@ export const ui = {
   correct: { en: "Correct!", hi: "सही!" },
   notQuite: { en: "Not quite — that's how we learn.", hi: "पूरा सही नहीं — ऐसे ही तो सीखते हैं।" },
   score: { en: "You spotted", hi: "आपने पहचाने" },
+  comingSoon: {
+    en: "More apps to practice are coming soon: booking a cab, ordering medicines, and more.",
+    hi: "जल्द ही और ऐप्स की प्रैक्टिस आएगी: कैब बुक करना, दवाइयाँ मँगाना, और भी बहुत कुछ।",
+  },
   micUnavailable: {
     en: "The microphone is not available. Please type instead.",
     hi: "माइक उपलब्ध नहीं है। कृपया लिखकर पूछें।",

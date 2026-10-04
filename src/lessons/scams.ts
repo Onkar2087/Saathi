@@ -73,4 +73,16 @@ export const scamCards: ScamCard[] = [
       hi: "जिस लॉटरी में आपने हिस्सा ही नहीं लिया, उसे आप जीत नहीं सकते। और OTP आपके घर की चाबी जैसा है — इसे किसी को मत बताइए।",
     },
   },
+  {
+    from: "+91 93xxx 40x18",
+    body: {
+      en: "This is Inspector Sharma from Cyber Crime. A parcel with drugs was sent in your name. You are under DIGITAL ARREST. Stay on this video call and pay ₹50,000 as a deposit, or police will come to your house.",
+      hi: "मैं साइबर क्राइम से इंस्पेक्टर शर्मा बोल रहा हूँ। आपके नाम से ड्रग्स वाला पार्सल भेजा गया है। आप डिजिटल अरेस्ट में हैं। इस वीडियो कॉल पर रहिए और ₹50,000 जमा कीजिए, वरना पुलिस आपके घर आएगी।",
+    },
+    isScam: true,
+    why: {
+      en: "Real police never arrest anyone on a video call and never ask for money on the phone. There is no such thing as a 'digital arrest'. Hang up and call your family or 112.",
+      hi: "असली पुलिस कभी वीडियो कॉल पर गिरफ़्तार नहीं करती और फ़ोन पर पैसे नहीं माँगती। 'डिजिटल अरेस्ट' जैसी कोई चीज़ नहीं होती। फ़ोन काटिए और परिवार को या 112 पर कॉल कीजिए।",
+    },
+  },
 ];
