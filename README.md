@@ -72,3 +72,5 @@ ElevenLabs is only used for voice. Lesson narration is generated once at build t
 scripts, so practicing a lesson sends nothing to ElevenLabs. The only voice data that leaves the app
 is a spoken "Ask Saathi" question (ElevenLabs speech-to-text, or the browser's recogniser when no key is set).
 Typed questions and the scam checker go only to Gemma.
+
+
