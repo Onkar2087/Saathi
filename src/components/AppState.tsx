@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useSyncExternalStore } from "react";
 import type { Lang } from "@/lib/i18n";
 
 type AppState = {
@@ -13,61 +13,77 @@ type AppState = {
 
 const Ctx = createContext<AppState | null>(null);
 
+const listeners = new Set<() => void>();
+const memory = new Map<string, string>();
+
 function read(key: string) {
   try {
-    return localStorage.getItem(key);
+    return localStorage.getItem(key) ?? memory.get(key) ?? null;
   } catch {
-    return null;
+    return memory.get(key) ?? null;
   }
 }
+
 function write(key: string, value: string) {
+  memory.set(key, value);
   try {
     localStorage.setItem(key, value);
   } catch {
-    // private mode etc. — preferences just won't persist
+    memory.set(key, value);
+  }
+  listeners.forEach((notify) => notify());
+}
+
+function subscribe(onChange: () => void) {
+  listeners.add(onChange);
+  window.addEventListener("storage", onChange);
+  return () => {
+    listeners.delete(onChange);
+    window.removeEventListener("storage", onChange);
+  };
+}
+
+function savedLang(): Lang {
+  return read("saathi.lang") === "hi" ? "hi" : "en";
+}
+
+function savedUserId() {
+  let id = read("saathi.user");
+  if (!id) {
+    id = crypto.randomUUID();
+    write("saathi.user", id);
+  }
+  return id;
+}
+
+function savedCompleted() {
+  return read("saathi.completed") ?? "[]";
+}
+
+function parseList(raw: string): string[] {
+  try {
+    const list = JSON.parse(raw);
+    return Array.isArray(list) ? list : [];
+  } catch {
+    return [];
   }
 }
 
 export function AppStateProvider({ children }: { children: React.ReactNode }) {
-  const [lang, setLangState] = useState<Lang>("en");
-  const [userId, setUserId] = useState("guest");
-  const [completed, setCompleted] = useState<string[]>([]);
-
-  useEffect(() => {
-    // Restore saved preferences after hydration (localStorage isn't available on the server).
-    /* eslint-disable react-hooks/set-state-in-effect */
-    const savedLang = read("saathi.lang");
-    if (savedLang === "en" || savedLang === "hi") setLangState(savedLang);
-    let id = read("saathi.user");
-    if (!id) {
-      id = crypto.randomUUID();
-      write("saathi.user", id);
-    }
-    setUserId(id);
-    try {
-      setCompleted(JSON.parse(read("saathi.completed") || "[]"));
-    } catch {
-      setCompleted([]);
-    }
-    /* eslint-enable react-hooks/set-state-in-effect */
-  }, []);
+  const lang = useSyncExternalStore(subscribe, savedLang, () => "en" as Lang);
+  const userId = useSyncExternalStore(subscribe, savedUserId, () => "guest");
+  const completedRaw = useSyncExternalStore(subscribe, savedCompleted, () => "[]");
+  const completed = useMemo(() => parseList(completedRaw), [completedRaw]);
 
   useEffect(() => {
     document.documentElement.lang = lang;
   }, [lang]);
 
-  const setLang = useCallback((l: Lang) => {
-    setLangState(l);
-    write("saathi.lang", l);
-  }, []);
+  const setLang = useCallback((l: Lang) => write("saathi.lang", l), []);
 
   const markCompleted = useCallback((lessonId: string) => {
-    setCompleted((prev) => {
-      if (prev.includes(lessonId)) return prev;
-      const next = [...prev, lessonId];
-      write("saathi.completed", JSON.stringify(next));
-      return next;
-    });
+    const current = parseList(savedCompleted());
+    if (!current.includes(lessonId)) write("saathi.completed", JSON.stringify([...current, lessonId]));
   }, []);
 
   return <Ctx.Provider value={{ lang, setLang, userId, completed, markCompleted }}>{children}</Ctx.Provider>;

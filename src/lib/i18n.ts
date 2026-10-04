@@ -71,3 +71,10 @@ export const ui = {
 export function t(text: Text, lang: Lang) {
   return text[lang] ?? text.en;
 }
+
+export function joinText(...parts: Text[]): Text {
+  return {
+    en: parts.map((p) => p.en).join(" "),
+    hi: parts.map((p) => p.hi).join(" "),
+  };
+}

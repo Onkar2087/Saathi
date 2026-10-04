@@ -4,7 +4,6 @@ export function elevenLabsConfigured() {
   return Boolean(process.env.ELEVENLABS_API_KEY && process.env.ELEVENLABS_VOICE_ID);
 }
 
-/** Calm, slightly slower speech — easier to follow for older listeners. Returns MP3 bytes. */
 export async function textToSpeech(text: string): Promise<ArrayBuffer> {
   const res = await fetch(
     `${API}/text-to-speech/${process.env.ELEVENLABS_VOICE_ID}?output_format=mp3_44100_128`,

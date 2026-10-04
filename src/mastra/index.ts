@@ -3,7 +3,6 @@ import { Observability } from "@mastra/observability";
 import { SentryExporter } from "@mastra/sentry";
 import { saathiAgent, scamAgent, storage } from "./agents";
 
-// Sentry AI monitoring: every agent run, model call and tool call becomes a trace with latency + token counts.
 const observability = process.env.SENTRY_DSN
   ? new Observability({
       configs: {
@@ -29,7 +28,6 @@ function createMastra() {
   });
 }
 
-// Reuse one instance across dev hot-reloads.
 const globalForMastra = globalThis as unknown as { _saathiMastra?: ReturnType<typeof createMastra> };
 
 export const mastra = globalForMastra._saathiMastra ?? createMastra();

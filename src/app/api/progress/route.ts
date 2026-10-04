@@ -10,7 +10,6 @@ type ProgressEvent = {
 
 const ACTIONS = new Set(["start", "tap", "wrong", "hint", "ask", "done"]);
 
-/** Every tap is logged; this table is what a future readiness model (TabPFN) learns from. */
 export async function POST(req: Request) {
   const e = (await req.json()) as ProgressEvent;
   if (!e.userId || !e.lessonId || !ACTIONS.has(e.action)) {

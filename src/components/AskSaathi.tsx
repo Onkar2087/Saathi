@@ -62,7 +62,6 @@ export function AskSaathi({ lang, userId, lessonId, stepIndex, onClose, onAsked 
     stopSpeaking();
     setMicError(false);
     if (await voiceStatus()) {
-      // ElevenLabs speech-to-text: record a short clip, send it once she taps again.
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         const chunks: Blob[] = [];
@@ -86,7 +85,6 @@ export function AskSaathi({ lang, userId, lessonId, stepIndex, onClose, onAsked 
         setState("listening");
         return;
       } catch {
-        // no mic permission — try the browser's recogniser below
       }
     }
     const w = window as unknown as { SpeechRecognition?: new () => Recognition; webkitSpeechRecognition?: new () => Recognition };

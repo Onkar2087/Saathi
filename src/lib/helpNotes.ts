@@ -14,9 +14,7 @@ function keywordSearch(query: string, k: number) {
     .map((x) => x.n.text);
 }
 
-/** Atlas Vector Search over help notes, falling back to keyword search when Atlas or embeddings are unavailable. */
 export async function searchHelpNotes(query: string, k = 3): Promise<string[]> {
-  // Hosts without an embedding model (e.g. serverless Gemma) set EMBED_MODEL_NAME empty and use keywords.
   const db = modelConfig.embedName ? await getDb() : null;
   if (db) {
     try {

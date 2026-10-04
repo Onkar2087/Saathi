@@ -19,7 +19,6 @@ export const storage = process.env.MONGODB_URI
     })
   : undefined;
 
-// Remembers recent questions (and, with tool-capable Gemma builds, a short profile of what she finds hard).
 const memory = storage
   ? new Memory({
       storage,

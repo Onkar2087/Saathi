@@ -1,5 +1,3 @@
-// Seeds Atlas: embeds help notes with EmbeddingGemma (via Ollama) and creates the vector search index.
-// Run: npm run seed   (needs MONGODB_URI and a running Gemma/Ollama endpoint)
 import { MongoClient } from "mongodb";
 import { helpNotes } from "../src/lessons/helpNotes.ts";
 

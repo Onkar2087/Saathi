@@ -20,7 +20,6 @@ jobs:
       - run: npm run build
 
   deploy:
-    # Only ship to Render when main is green.
     needs: check
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest

@@ -127,7 +127,6 @@ export function PhoneApp({ screen, highlight, onTap, lang }: MockProps) {
     );
   }
 
-  // phone-calling
   return (
     <div ref={ref} className="flex min-h-full flex-col bg-slate-800 text-white">
       <div className="flex flex-1 flex-col items-center justify-center p-4 text-center">

@@ -23,7 +23,6 @@ export async function POST(req: Request) {
   const text = message?.trim().slice(0, 2000);
   if (!text) return Response.json({ error: "empty" }, { status: 400 });
 
-  // Rules decide the verdict (never miss an OTP trick); Gemma explains it kindly.
   const { verdict, flags } = scanForRedFlags(text);
   try {
     const result = await mastra.getAgent("scamAgent").generate(

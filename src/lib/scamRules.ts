@@ -1,7 +1,5 @@
 export type Verdict = "safe" | "careful" | "scam";
 
-// English words sit inside \b…\b; Hindi words stay outside it, because JavaScript's \b
-// only understands Latin letters and never matches around Devanagari.
 const RULES: { flag: string; re: RegExp; weight: number }[] = [
   { flag: "asks for an OTP or PIN", re: /\b(otp|one[- ]time password|pin|cvv)\b|ओटीपी|पिन/i, weight: 3 },
   { flag: "mentions KYC or account blocking", re: /\b(kyc|blocked?|suspend(ed)?|deactivat\w*)\b|खाता बंद|ब्लॉक/i, weight: 2 },
@@ -34,7 +32,6 @@ const RULES: { flag: string; re: RegExp; weight: number }[] = [
     weight: 3,
   },
   {
-    // Only threats against YOUR connection; an area power-cut notice is not a scam.
     flag: "threatens to cut your electricity or gas",
     re: /\byour (electricity|power|gas|connection)\b.{0,40}\b(disconnect\w*|cut)\b|आपकी (बिजली|गैस).{0,40}(कट|काट)/i,
     weight: 3,
@@ -46,7 +43,6 @@ const RULES: { flag: string; re: RegExp; weight: number }[] = [
   },
 ];
 
-/** Fast, offline red-flag check. Gemma explains; these rules make sure obvious tricks are never missed. */
 export function scanForRedFlags(text: string) {
   const hits = RULES.filter((r) => r.re.test(text));
   const score = hits.reduce((s, r) => s + r.weight, 0);

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { getLesson } from "@/lessons";
-import { t, ui } from "@/lib/i18n";
+import { joinText, t, ui, type Text } from "@/lib/i18n";
 import { SCRIPTED, speak, stopSpeaking } from "@/lib/speech";
 import { logProgress, useAppState } from "./AppState";
 import { AskSaathi } from "./AskSaathi";
@@ -14,6 +14,8 @@ import { PharmacyApp } from "./mock/PharmacyApp";
 import { PhoneApp } from "./mock/PhoneApp";
 import { UpiApp } from "./mock/UpiApp";
 
+const clock = () => Date.now();
+
 const APPS = { chat: ChatApp, upi: UpiApp, cab: CabApp, pharmacy: PharmacyApp, phone: PhoneApp };
 
 export function LessonPlayer({ lessonId }: { lessonId: string }) {
@@ -23,7 +25,7 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
   const [index, setIndex] = useState(0);
   const [fields, setFields] = useState<Record<string, string>>(lesson.initialFields ?? {});
   const [wrong, setWrong] = useState(0);
-  const [caption, setCaption] = useState(t(lesson.intro, lang));
+  const [caption, setCaption] = useState<Text>(lesson.intro);
   const [asking, setAsking] = useState(false);
   const stepShownAt = useRef(0);
 
@@ -39,19 +41,13 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
 
   useEffect(() => () => stopSpeaking(), []);
 
-  // Keep the caption in the chosen language if she switches mid-lesson.
-  useEffect(() => {
-    /* eslint-disable-next-line react-hooks/set-state-in-effect */
-    setCaption(phase === "intro" ? t(lesson.intro, lang) : phase === "done" ? t(ui.lessonDone, lang) : t(step.say, lang));
-  }, [lang]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  function say(text: string) {
+  function say(text: Text) {
     setCaption(text);
-    speak(text, lang, SCRIPTED);
+    speak(t(text, lang), lang, SCRIPTED);
   }
 
   function log(action: string, step = index) {
-    logProgress({ userId, lessonId, step, action, ms: Date.now() - stepShownAt.current });
+    logProgress({ userId, lessonId, step, action, ms: clock() - stepShownAt.current });
   }
 
   function start() {
@@ -59,11 +55,10 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
     setIndex(0);
     setFields(lesson.initialFields ?? {});
     setWrong(0);
-    stepShownAt.current = Date.now();
+    stepShownAt.current = clock();
     log("start", 0);
-    const first = t(lesson.steps[0].say, lang);
-    setCaption(first);
-    speak(`${t(lesson.intro, lang)} ${first}`, lang, SCRIPTED);
+    setCaption(lesson.steps[0].say);
+    speak(t(joinText(lesson.intro, lesson.steps[0].say), lang), lang, SCRIPTED);
   }
 
   function onTap(id: string) {
@@ -72,28 +67,27 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
       const n = wrong + 1;
       setWrong(n);
       log("wrong");
-      // A trap is a dangerous button (e.g. "Pay" on a fake request): explain exactly why.
       const trap = step.traps?.[id];
-      say(trap ? t(trap, lang) : n >= 2 ? t(step.hint, lang) : t(ui.wrongTap, lang));
+      say(trap ?? (n >= 2 ? step.hint : ui.wrongTap));
       return;
     }
     if (needsUnmet) {
       setWrong((w) => w + 1);
       log("hint");
-      say(t(step.needs!.reminder, lang));
+      say(step.needs!.reminder);
       return;
     }
     log("tap");
     setWrong(0);
-    stepShownAt.current = Date.now();
+    stepShownAt.current = clock();
     if (index + 1 < lesson.steps.length) {
       setIndex(index + 1);
-      say(t(lesson.steps[index + 1].say, lang));
+      say(lesson.steps[index + 1].say);
     } else {
       setPhase("done");
       markCompleted(lesson.id);
       log("done");
-      say(`${t(ui.wellDone, lang)} ${t(ui.lessonDone, lang)}`);
+      say(joinText(ui.wellDone, ui.lessonDone));
     }
   }
 
@@ -117,7 +111,7 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
                 {index + 1} / {lesson.steps.length}
               </p>
             )}
-            <p className="text-lg leading-snug text-slate-900">{caption}</p>
+            <p className="text-lg leading-snug text-slate-900">{t(caption, lang)}</p>
           </div>
         </div>
 
@@ -157,7 +151,7 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
         </div>
 
         <div className="grid grid-cols-3 gap-2">
-          <button type="button" onClick={() => speak(caption, lang, SCRIPTED)} className="rounded-2xl bg-white py-3 text-lg font-semibold text-slate-800 shadow-sm">
+          <button type="button" onClick={() => speak(t(caption, lang), lang, SCRIPTED)} className="rounded-2xl bg-white py-3 text-lg font-semibold text-slate-800 shadow-sm">
             🔊<br />
             {t(ui.repeat, lang)}
           </button>

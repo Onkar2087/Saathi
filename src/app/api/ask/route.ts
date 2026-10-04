@@ -23,7 +23,6 @@ export async function POST(req: Request) {
   const lang: Lang = body.lang === "hi" ? "hi" : "en";
   if (!question) return Response.json({ answer: FALLBACK[lang] }, { status: 400 });
 
-  // Ground the answer in what's on her screen right now, plus trusted help notes.
   const lesson = body.lessonId ? getLesson(body.lessonId) : undefined;
   const step = lesson && body.stepIndex != null ? lesson.steps[body.stepIndex] : undefined;
   const notes = await searchHelpNotes(question);

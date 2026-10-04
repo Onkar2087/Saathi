@@ -146,7 +146,6 @@ export function CabApp({ screen, highlight, onTap, fields, setField, lang }: Moc
     );
   }
 
-  // cab-booked
   return (
     <div ref={ref} className="flex min-h-full flex-col bg-white">
       {header(false)}

@@ -1,4 +1,3 @@
-/** Short, trustworthy facts Saathi can lean on. Seeded into Atlas with embeddings by scripts/seed.mts. */
 export const helpNotes: { id: string; text: string }[] = [
   { id: "upi-pin", text: "A UPI PIN is a secret 4 or 6 digit number that approves a payment. You only type it when YOU are sending money. You never need a PIN to receive money. Never tell it to anyone, including bank staff." },
   { id: "otp", text: "An OTP is a one-time code sent by SMS. It works like a key for one action. Banks, police and companies will never ask you to read out an OTP. If someone asks, it is a scam." },

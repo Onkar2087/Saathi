@@ -58,12 +58,6 @@ function play(src: string) {
   });
 }
 
-/**
- * Speak a sentence: pre-generated ElevenLabs narration first (no live API call, no user data),
- * then live ElevenLabs, then the browser's own voice.
- * Scripted lesson lines pass `live: false` so replaying lessons never spends voice credits;
- * live voice is reserved for Saathi's AI answers.
- */
 export async function speak(text: string, lang: Lang, { live = true }: { live?: boolean } = {}) {
   stopSpeaking();
   const key = textKey(text);
@@ -84,10 +78,8 @@ export async function speak(text: string, lang: Lang, { live = true }: { live?: 
       return await play(url);
     }
   } catch {
-    // fall through to the browser voice
   }
   return browserSpeak(text, lang);
 }
 
-/** Options for scripted lines: pre-recorded clip or browser voice, never live (paid) voice. */
 export const SCRIPTED = { live: false };

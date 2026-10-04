@@ -5,16 +5,11 @@ export type AppId = "chat" | "upi" | "cab" | "pharmacy" | "phone";
 export type Category = "family" | "money" | "daily" | "safety";
 
 export type Step = {
-  /** Which mock-app screen to show */
   screen: string;
-  /** The element she should tap next (gets the glowing ring) */
   target: string;
-  /** Optional: a field that must be filled before the target counts */
   needs?: { field: string; equals?: string; reminder: Text };
   say: Text;
-  /** Spoken after two wrong taps, in different words */
   hint: Text;
-  /** Dangerous buttons on this screen, with what to say if she taps one */
   traps?: Record<string, Text>;
 };
 
@@ -26,9 +21,7 @@ export type Lesson = {
   title: Text;
   intro: Text;
   steps: Step[];
-  /** Screen to leave on after the last step */
   doneScreen: string;
-  /** Values the mock app starts with (e.g. which shop a UPI payment goes to) */
   initialFields?: Record<string, string>;
 };
 

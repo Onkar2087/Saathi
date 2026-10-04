@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
 :root {
-  /* Large base size: everything scales from here. */
   font-size: 18px;
 }
 
@@ -16,7 +15,6 @@ a {
   touch-action: manipulation;
 }
 
-/* The glowing ring that shows her where to tap next. */
 .saathi-glow {
   position: relative;
   z-index: 1;

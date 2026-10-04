@@ -9,6 +9,5 @@ export function generateStaticParams() {
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   if (!getLesson(id)) notFound();
-  // key resets the player when moving between lessons
   return <LessonPlayer key={id} lessonId={id} />;
 }

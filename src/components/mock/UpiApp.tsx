@@ -20,7 +20,6 @@ const L = {
   },
   paid: { en: "paid to", hi: "भेजे गए" },
   done: { en: "Done", hi: "हो गया" },
-  // payment request
   requestBanner: { en: "Payment request: ₹4,999", hi: "पैसे की रिक्वेस्ट: ₹4,999" },
   requestFrom: { en: "QuickRefund Services is requesting", hi: "QuickRefund Services माँग रहा है" },
   requestNote: { en: "Note: Refund for your order", hi: "नोट: आपके ऑर्डर का रिफ़ंड" },
@@ -28,9 +27,7 @@ const L = {
   decline: { en: "Decline", hi: "मना करें" },
   declined: { en: "Request declined", hi: "रिक्वेस्ट मना कर दी" },
   declinedNote: { en: "No money was paid.", hi: "कोई पैसा नहीं गया।" },
-  // scanner
   scanHint: { en: "Point the camera at the QR code", hi: "कैमरा QR कोड की ओर करें" },
-  // bills
   billTypes: { en: "What do you want to pay?", hi: "क्या भरना है?" },
   electricity: { en: "Electricity", hi: "बिजली" },
   mobile: { en: "Mobile recharge", hi: "मोबाइल रिचार्ज" },
@@ -51,7 +48,6 @@ const people = [
   { id: "contact-sharma", name: "Sharma Ji (Neighbour)", phone: "96xxx xxx13", color: "bg-amber-500" },
 ];
 
-/** A blocky, decorative QR-like pattern (not a real code). */
 function FakeQr() {
   const cells = "1110111010110100101111011001110101101011100101110111".split("");
   return (
@@ -287,7 +283,6 @@ export function UpiApp({ screen, highlight, onTap, fields, setField, lang }: Moc
             <span className="block text-sm text-green-700">{L.verified[lang]}</span>
           </span>
         </div>
-        {/* Amount and Pay sit above the keypad so the button never scrolls out of sight */}
         <div className="flex items-center gap-3 px-4 pb-3">
           <p className="flex-1 text-center text-4xl font-bold text-slate-900">₹{amount || "0"}</p>
           <Tap id="amount-next" highlight={highlight} onTap={onTap} className="rounded-2xl bg-indigo-700 px-6 py-3 text-2xl font-bold text-white">
@@ -334,7 +329,6 @@ export function UpiApp({ screen, highlight, onTap, fields, setField, lang }: Moc
     );
   }
 
-  // upi-success
   return (
     <div ref={ref} className="flex min-h-full flex-col bg-green-600 text-center text-white">
       <div className="flex flex-1 flex-col items-center justify-center gap-3 p-6">

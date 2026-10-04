@@ -12,7 +12,6 @@ export type MockProps = {
   lang: Lang;
 };
 
-/** Anything she can tap. The one Saathi wants her to tap glows and scrolls into view. */
 export function Tap({
   id,
   highlight,
@@ -41,7 +40,6 @@ export function Tap({
   );
 }
 
-/** Wraps a non-button area (keypad, text box) so it can glow too. */
 export function Glow({
   id,
   highlight,

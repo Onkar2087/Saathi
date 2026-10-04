@@ -68,7 +68,6 @@ export function ChatApp({ screen, highlight, onTap, fields, setField, lang }: Mo
           <p className="text-3xl font-semibold">Rohan</p>
           <p className="mt-1 text-xl opacity-80">📹 {L.incomingCall[lang]}</p>
         </div>
-        {/* Call buttons stay pinned to the bottom so they're visible on small screens */}
         <div className="sticky bottom-0 flex w-full justify-around bg-[#0b3d36] px-6 py-4">
           <span className="flex flex-col items-center gap-2">
             <Tap id="decline-call" highlight={highlight} onTap={onTap} label="Decline" className="flex h-20 w-20 items-center justify-center rounded-full bg-red-600 text-4xl">
@@ -87,7 +86,6 @@ export function ChatApp({ screen, highlight, onTap, fields, setField, lang }: Mo
     );
   }
 
-  // "chat", "chat-sent", "chat-recording" and "chat-voice-sent"
   const sent = screen === "chat-sent";
   const recording = screen === "chat-recording";
   const voiceSent = screen === "chat-voice-sent";
@@ -157,7 +155,6 @@ export function ChatApp({ screen, highlight, onTap, fields, setField, lang }: Mo
             className="w-full rounded-full bg-white px-5 py-4 text-xl outline-none"
           />
         </Glow>
-        {/* Like real chat apps: a microphone until she types, then a send arrow */}
         <Tap
           id={typed ? "send" : "mic-btn"}
           highlight={highlight}

@@ -173,7 +173,6 @@ export function PharmacyApp({ screen, highlight, onTap, fields, setField, lang }
     );
   }
 
-  // med-placed
   return (
     <div ref={ref} className="flex min-h-full flex-col bg-emerald-600 text-center text-white">
       <div className="flex flex-1 flex-col items-center justify-center gap-3 p-5">

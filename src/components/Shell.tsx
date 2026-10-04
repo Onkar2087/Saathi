@@ -4,7 +4,6 @@ import Link from "next/link";
 import { t, ui, LANGS } from "@/lib/i18n";
 import { useAppState } from "./AppState";
 
-/** The always-visible frame: a calm "practice mode" banner and a way home. */
 export function Shell({
   children,
   showHome = true,
@@ -12,7 +11,6 @@ export function Shell({
 }: {
   children: React.ReactNode;
   showHome?: boolean;
-  /** Lock to the screen height so the help buttons never scroll away */
   fit?: boolean;
 }) {
   const { lang, setLang } = useAppState();
