@@ -13,8 +13,8 @@ and fake money. A patient AI companion talks them through every step, out loud, 
 ## How it's built
 
 ```
-Phone (Next.js PWA) ──► Next.js route handlers ──► Mastra agents ──► Gemma (Ollama, OpenAI-compatible)
-   mock apps                /api/ask  /api/check      saathi            laptop or DigitalOcean Droplet
+Phone (Next.js PWA) ──► Next.js route handlers ──► Mastra agents ──► Gemma (OpenAI-compatible API)
+   mock apps                /api/ask  /api/check      saathi            Gemma 3 on a laptop (Ollama) or Gemma 4 on DigitalOcean Serverless
    lesson engine            /api/progress             scam-checker
    voice (ElevenLabs)       /api/voice/*              tools + memory ──► MongoDB Atlas
                                                       traces ──────────► Sentry AI monitoring
@@ -55,15 +55,15 @@ npm run gen-audio   # pre-generate all lesson narration with ElevenLabs into pub
 
 ## Deploy
 
-- **Model:** follow [deploy/digitalocean.md](deploy/digitalocean.md) (Ollama + Gemma behind a keyed Caddy proxy).
+- **Model:** Gemma 4 on DigitalOcean Serverless Inference, using a Model Access Key limited to Gemma. See [deploy/digitalocean.md](deploy/digitalocean.md).
 - **App:** create a Render Blueprint from `render.yaml`, then fill in the secret env vars.
 - **CI/CD:** GitHub Actions (`.github/workflows/ci.yml`) lints, typechecks and builds every PR. On `main` it triggers the Render deploy hook (add it as the `RENDER_DEPLOY_HOOK_URL` repo secret).
 
 ## Why open models
 
-- **Privacy:** the real messages she checks for scams go to a Gemma model we host, not to a closed AI API.
+- **Privacy:** the real messages she checks for scams go only to open-weight Gemma. On her laptop they never leave the house; online we pick where Gemma runs and can move it any time.
 - **Works offline:** point `MODEL_BASE_URL` at `localhost` and the whole app runs on a laptop with no internet.
-- **Free to run:** no per-token bill for a family tool used every day.
+- **Cheap to run:** free on a laptop, and about $0.0002 per answer on DigitalOcean serverless.
 - **Easy to change:** we can swap model sizes, tune the prompt for her pace, or fine-tune on her own questions.
 
 ElevenLabs is only used for voice. Lesson narration is generated once at build time from our own

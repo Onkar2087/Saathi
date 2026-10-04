@@ -1,5 +1,5 @@
 import { getDb } from "./db";
-import { embed } from "./model";
+import { embed, modelConfig } from "./model";
 import { helpNotes } from "@/lessons/helpNotes";
 
 const VECTOR_INDEX = "help_notes_vector";
@@ -16,7 +16,8 @@ function keywordSearch(query: string, k: number) {
 
 /** Atlas Vector Search over help notes, falling back to keyword search when Atlas or embeddings are unavailable. */
 export async function searchHelpNotes(query: string, k = 3): Promise<string[]> {
-  const db = await getDb();
+  // Hosts without an embedding model (e.g. serverless Gemma) set EMBED_MODEL_NAME empty and use keywords.
+  const db = modelConfig.embedName ? await getDb() : null;
   if (db) {
     try {
       const vector = await embed(query);

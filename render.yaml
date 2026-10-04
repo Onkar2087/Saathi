@@ -12,16 +12,17 @@ services:
     envVars:
       - key: NODE_VERSION
         value: "24"
-      - key: MODEL_BASE_URL # your DigitalOcean Droplet, e.g. https://gemma.example.com/v1
-        sync: false
-      - key: MODEL_API_KEY
+      # Gemma 4 on DigitalOcean Serverless Inference (OpenAI-compatible)
+      - key: MODEL_BASE_URL
+        value: https://inference.do-ai.run/v1
+      - key: MODEL_API_KEY # DigitalOcean Model Access Key, scoped to Gemma 4 only
         sync: false
       - key: MODEL_NAME
-        value: gemma3:4b
-      - key: EMBED_MODEL_NAME
-        value: embeddinggemma
-      - key: MODEL_SUPPORTS_TOOLS
-        value: "false"
+        value: gemma-4-31B-it
+      - key: MODEL_SUPPORTS_TOOLS # Gemma 4 does tool calling: enables Mastra tools + working memory
+        value: "true"
+      - key: EMBED_MODEL_NAME # no serverless embedding model: help notes use keyword search
+        value: none
       - key: MONGODB_URI
         sync: false
       - key: MONGODB_DB_NAME
