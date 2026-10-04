@@ -47,7 +47,7 @@ export function Home() {
           🛠️ {t(ui.comingSoon, lang)}
         </p>
       </main>
-      <footer className="px-5 pb-6 text-center text-base text-slate-500">Made with 🧡 by Onkar · © 2026</footer>
+      <footer className="px-5 pb-6 text-center text-base text-slate-500">Made with 🧡 by Onkar Dhingra · © 2026</footer>
     </Shell>
   );
 }
