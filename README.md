@@ -1,4 +1,4 @@
-# 🧡 Saathi — practice phone apps where nothing can go wrong
+# Saathi — practice phone apps where nothing can go wrong
 
 Many older people are scared of everyday apps. *What if I tap the wrong thing and lose money?*
 Saathi ("companion") gives them **practice copies** of the apps they're afraid of, with fake people
