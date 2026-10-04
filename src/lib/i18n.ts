@@ -59,8 +59,8 @@ export const ui = {
   notQuite: { en: "Not quite — that's how we learn.", hi: "पूरा सही नहीं — ऐसे ही तो सीखते हैं।" },
   score: { en: "You spotted", hi: "आपने पहचाने" },
   comingSoon: {
-    en: "More apps to practice are coming soon: booking a cab, ordering medicines, and more.",
-    hi: "जल्द ही और ऐप्स की प्रैक्टिस आएगी: कैब बुक करना, दवाइयाँ मँगाना, और भी बहुत कुछ।",
+    en: "More apps to practice, in more languages, are coming soon",
+    hi: "जल्द ही और ऐप्स की प्रैक्टिस, और भी भाषाओं में आएगी",
   },
   micUnavailable: {
     en: "The microphone is not available. Please type instead.",

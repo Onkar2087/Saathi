@@ -39,16 +39,29 @@ for (const lang of ["en", "hi"] as Lang[]) {
 }
 
 let made = 0;
+let stoppedEarly = "";
 for (const text of sentences) {
   const file = join(out, `${textKey(text)}.mp3`);
   if (existsSync(file)) continue;
-  writeFileSync(file, Buffer.from(await textToSpeech(text)));
+  try {
+    writeFileSync(file, Buffer.from(await textToSpeech(text)));
+  } catch (err) {
+    // Usually the monthly credit quota. Keep what we made; re-run later to fill in the rest.
+    stoppedEarly = (err as Error).message.slice(0, 200);
+    break;
+  }
   made++;
   console.log(`  ✓ ${text.slice(0, 60)}`);
 }
 
+// Always save the manifest, even after a partial run, so finished clips get used.
 const keys = readdirSync(out)
   .filter((f) => f.endsWith(".mp3"))
   .map((f) => f.replace(/\.mp3$/, ""));
 writeFileSync(join(out, "manifest.json"), JSON.stringify(keys));
 console.log(`Generated ${made} new clips (${keys.length} total).`);
+if (stoppedEarly) {
+  const left = [...sentences].filter((t) => !existsSync(join(out, `${textKey(t)}.mp3`))).length;
+  console.log(`Stopped early (${left} clips still missing): ${stoppedEarly}`);
+  console.log("Those lines use the browser voice until you run this again, e.g. when your credits renew.");
+}

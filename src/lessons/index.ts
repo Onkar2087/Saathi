@@ -1,6 +1,6 @@
 import type { Text } from "@/lib/i18n";
 
-export type AppId = "chat" | "upi";
+export type AppId = "chat" | "upi" | "cab" | "pharmacy";
 
 export type Step = {
   /** Which mock-app screen to show */
@@ -219,6 +219,156 @@ export const lessons: Lesson[] = [
       },
     ],
     doneScreen: "upi-home",
+  },
+  {
+    id: "book-cab",
+    app: "cab",
+    emoji: "🚕",
+    title: { en: "Book a cab", hi: "कैब बुक करना" },
+    intro: {
+      en: "Let's book an auto to City Hospital. No auto will really come, so take your time.",
+      hi: "चलिए सिटी हॉस्पिटल के लिए ऑटो बुक करते हैं। कोई ऑटो असल में नहीं आएगा, इसलिए आराम से कीजिए।",
+    },
+    steps: [
+      {
+        screen: "cab-home",
+        target: "where-to",
+        say: {
+          en: "The map shows where you are now. Tap the 'Where to?' box to choose where you want to go.",
+          hi: "नक्शे में दिख रहा है कि आप अभी कहाँ हैं। कहाँ जाना है, यह चुनने के लिए 'कहाँ जाना है?' वाले डिब्बे को दबाइए।",
+        },
+        hint: {
+          en: "The white 'Where to?' box is just below the map.",
+          hi: "'कहाँ जाना है?' वाला सफ़ेद डिब्बा नक्शे के ठीक नीचे है।",
+        },
+      },
+      {
+        screen: "cab-destination",
+        target: "dest-hospital",
+        say: {
+          en: "Here are some places. Tap City Hospital.",
+          hi: "यहाँ कुछ जगहें हैं। सिटी हॉस्पिटल को दबाइए।",
+        },
+        hint: {
+          en: "City Hospital has a red cross next to it.",
+          hi: "सिटी हॉस्पिटल के आगे लाल क्रॉस का निशान है।",
+        },
+      },
+      {
+        screen: "cab-choose",
+        target: "book-btn",
+        needs: {
+          field: "ride",
+          equals: "auto",
+          reminder: {
+            en: "First tap Auto in the list, so it is selected.",
+            hi: "पहले सूची में ऑटो को दबाइए, ताकि वह चुन लिया जाए।",
+          },
+        },
+        say: {
+          en: "These are the types of ride, with their prices. Tap Auto, it is the cheapest. Then tap the Book button.",
+          hi: "ये सवारी के प्रकार हैं, उनके दाम के साथ। ऑटो दबाइए, यह सबसे सस्ता है। फिर 'बुक करें' बटन दबाइए।",
+        },
+        hint: {
+          en: "Auto is at the top of the list, for 80 rupees. The Book button is at the bottom.",
+          hi: "ऑटो सूची में सबसे ऊपर है, 80 रुपये का। 'बुक करें' बटन नीचे है।",
+        },
+      },
+      {
+        screen: "cab-booked",
+        target: "share-ride",
+        say: {
+          en: "Your auto is booked! Raju is coming. The 4 numbers are your ride OTP. Tell them to the driver only after you sit in the auto. Now tap 'Share ride with family', so they know where you are.",
+          hi: "आपका ऑटो बुक हो गया! राजू आ रहे हैं। ये 4 नंबर आपकी सवारी का OTP हैं। ऑटो में बैठने के बाद ही ड्राइवर को बताइए। अब 'परिवार को बताएँ' दबाइए, ताकि उन्हें पता रहे कि आप कहाँ हैं।",
+        },
+        hint: {
+          en: "The 'Share ride with family' button is green, at the bottom.",
+          hi: "'परिवार को बताएँ' बटन हरे रंग का है, नीचे की तरफ़।",
+        },
+      },
+    ],
+    doneScreen: "cab-booked",
+  },
+  {
+    id: "order-medicine",
+    app: "pharmacy",
+    emoji: "💊",
+    title: { en: "Order medicines", hi: "दवाइयाँ मँगाना" },
+    intro: {
+      en: "Let's order Paracetamol from a medicine app. Nothing will be delivered and no money will be paid.",
+      hi: "चलिए दवाई वाले ऐप से पैरासिटामोल मँगाते हैं। कुछ भी डिलीवर नहीं होगा और कोई पैसा नहीं कटेगा।",
+    },
+    steps: [
+      {
+        screen: "med-home",
+        target: "search",
+        say: {
+          en: "This is the medicine app. Tap the search box at the top to find your medicine.",
+          hi: "यह दवाई वाला ऐप है। अपनी दवाई ढूँढने के लिए ऊपर खोज वाले डिब्बे को दबाइए।",
+        },
+        hint: {
+          en: "The search box has a magnifying glass and is at the very top.",
+          hi: "खोज वाले डिब्बे पर एक आवर्धक लेंस बना है, और यह सबसे ऊपर है।",
+        },
+      },
+      {
+        screen: "med-results",
+        target: "add-paracetamol",
+        say: {
+          en: "Here is Paracetamol 500 mg. Always check the name and the strength match your prescription. Then tap Add.",
+          hi: "यह रही पैरासिटामोल 500 mg। हमेशा देखिए कि नाम और ताकत आपके पर्चे से मिलते हैं। फिर 'जोड़ें' दबाइए।",
+        },
+        hint: {
+          en: "Paracetamol 500 mg is the first medicine. The Add button is on its right.",
+          hi: "पैरासिटामोल 500 mg पहली दवाई है। 'जोड़ें' बटन उसके दाईं ओर है।",
+        },
+      },
+      {
+        screen: "med-cart",
+        target: "checkout",
+        say: {
+          en: "Your medicine is in the cart. Check the quantity and the price, then tap 'Continue'.",
+          hi: "आपकी दवाई कार्ट में है। मात्रा और दाम देख लीजिए, फिर 'आगे बढ़ें' दबाइए।",
+        },
+        hint: {
+          en: "The Continue button is at the bottom of the screen.",
+          hi: "'आगे बढ़ें' बटन स्क्रीन के नीचे है।",
+        },
+      },
+      {
+        screen: "med-pay",
+        target: "place-order",
+        needs: {
+          field: "pay",
+          equals: "cod",
+          reminder: {
+            en: "First tap 'Cash on delivery', so it is selected.",
+            hi: "पहले 'घर पर नकद भुगतान' दबाइए, ताकि वह चुन लिया जाए।",
+          },
+        },
+        say: {
+          en: "Choose 'Cash on delivery'. You pay only when the medicine reaches your door. Then tap 'Place order'.",
+          hi: "'घर पर नकद भुगतान' चुनिए। पैसे तभी देने हैं जब दवाई आपके दरवाज़े पर पहुँचे। फिर 'ऑर्डर करें' दबाइए।",
+        },
+        hint: {
+          en: "Cash on delivery has a picture of money. The Place order button is at the bottom.",
+          hi: "'घर पर नकद भुगतान' के आगे पैसे का चित्र है। 'ऑर्डर करें' बटन नीचे है।",
+        },
+      },
+      {
+        screen: "med-placed",
+        target: "done-btn",
+        say: {
+          en: "Order placed! It will come tomorrow. When it arrives, check the medicine name and the expiry date on the box. Tap Done.",
+          hi: "ऑर्डर हो गया! यह कल आएगा। जब आए, तो डिब्बे पर दवाई का नाम और एक्सपायरी तारीख ज़रूर देखिए। 'हो गया' दबाइए।",
+        },
+        hint: {
+          en: "The Done button is at the bottom of the screen.",
+          hi: "'हो गया' बटन स्क्रीन के नीचे है।",
+        },
+      },
+    ],
+    doneScreen: "med-home",
   },
 ];
 

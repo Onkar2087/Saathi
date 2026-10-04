@@ -4,12 +4,16 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { getLesson } from "@/lessons";
 import { t, ui } from "@/lib/i18n";
-import { speak, stopSpeaking } from "@/lib/speech";
+import { SCRIPTED, speak, stopSpeaking } from "@/lib/speech";
 import { logProgress, useAppState } from "./AppState";
 import { AskSaathi } from "./AskSaathi";
 import { Shell } from "./Shell";
+import { CabApp } from "./mock/CabApp";
 import { ChatApp } from "./mock/ChatApp";
+import { PharmacyApp } from "./mock/PharmacyApp";
 import { UpiApp } from "./mock/UpiApp";
+
+const APPS = { chat: ChatApp, upi: UpiApp, cab: CabApp, pharmacy: PharmacyApp };
 
 export function LessonPlayer({ lessonId }: { lessonId: string }) {
   const lesson = getLesson(lessonId)!;
@@ -29,7 +33,7 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
       ? (fields[step.needs.field] ?? "") !== step.needs.equals
       : !(fields[step.needs.field] ?? "").trim());
   const highlight = phase === "step" ? (needsUnmet ? step.needs!.field : step.target) : null;
-  const App = lesson.app === "upi" ? UpiApp : ChatApp;
+  const App = APPS[lesson.app];
   const screen = phase === "done" ? lesson.doneScreen : step.screen;
 
   useEffect(() => () => stopSpeaking(), []);
@@ -42,7 +46,7 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
 
   function say(text: string) {
     setCaption(text);
-    speak(text, lang);
+    speak(text, lang, SCRIPTED);
   }
 
   function log(action: string, step = index) {
@@ -58,7 +62,7 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
     log("start", 0);
     const first = t(lesson.steps[0].say, lang);
     setCaption(first);
-    speak(`${t(lesson.intro, lang)} ${first}`, lang);
+    speak(`${t(lesson.intro, lang)} ${first}`, lang, SCRIPTED);
   }
 
   function onTap(id: string) {
@@ -150,7 +154,7 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
         </div>
 
         <div className="grid grid-cols-3 gap-2">
-          <button type="button" onClick={() => speak(caption, lang)} className="rounded-2xl bg-white py-3 text-lg font-semibold text-slate-800 shadow-sm">
+          <button type="button" onClick={() => speak(caption, lang, SCRIPTED)} className="rounded-2xl bg-white py-3 text-lg font-semibold text-slate-800 shadow-sm">
             🔊<br />
             {t(ui.repeat, lang)}
           </button>

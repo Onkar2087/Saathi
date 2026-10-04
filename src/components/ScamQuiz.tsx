@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { scamCards, scamIntro as INTRO } from "@/lessons/scams";
 import { t, ui } from "@/lib/i18n";
-import { speak, stopSpeaking } from "@/lib/speech";
+import { SCRIPTED, speak, stopSpeaking } from "@/lib/speech";
 import { logProgress, useAppState } from "./AppState";
 import { Shell } from "./Shell";
 
@@ -24,7 +24,7 @@ export function ScamQuiz() {
     setIndex(i);
     setAnswer(null);
     shownAt.current = Date.now();
-    if (i < scamCards.length) speak(`${prefix} ${scamCards[i].body[lang]}`.trim(), lang);
+    if (i < scamCards.length) speak(`${prefix} ${scamCards[i].body[lang]}`.trim(), lang, SCRIPTED);
     else {
       markCompleted("spot-scam");
       logProgress({ userId, lessonId: "spot-scam", step: i, action: "done" });
@@ -37,7 +37,7 @@ export function ScamQuiz() {
     setAnswer(saysScam);
     if (right) setScore((s) => s + 1);
     logProgress({ userId, lessonId: "spot-scam", step: index, action: right ? "tap" : "wrong", ms: Date.now() - shownAt.current });
-    speak(`${right ? t(ui.correct, lang) : t(ui.notQuite, lang)} ${t(card.why, lang)}`, lang);
+    speak(`${right ? t(ui.correct, lang) : t(ui.notQuite, lang)} ${t(card.why, lang)}`, lang, SCRIPTED);
   }
 
   return (
