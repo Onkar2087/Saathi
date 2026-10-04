@@ -11,16 +11,17 @@ import { Shell } from "./Shell";
 import { CabApp } from "./mock/CabApp";
 import { ChatApp } from "./mock/ChatApp";
 import { PharmacyApp } from "./mock/PharmacyApp";
+import { PhoneApp } from "./mock/PhoneApp";
 import { UpiApp } from "./mock/UpiApp";
 
-const APPS = { chat: ChatApp, upi: UpiApp, cab: CabApp, pharmacy: PharmacyApp };
+const APPS = { chat: ChatApp, upi: UpiApp, cab: CabApp, pharmacy: PharmacyApp, phone: PhoneApp };
 
 export function LessonPlayer({ lessonId }: { lessonId: string }) {
   const lesson = getLesson(lessonId)!;
   const { lang, userId, markCompleted } = useAppState();
   const [phase, setPhase] = useState<"intro" | "step" | "done">("intro");
   const [index, setIndex] = useState(0);
-  const [fields, setFields] = useState<Record<string, string>>({});
+  const [fields, setFields] = useState<Record<string, string>>(lesson.initialFields ?? {});
   const [wrong, setWrong] = useState(0);
   const [caption, setCaption] = useState(t(lesson.intro, lang));
   const [asking, setAsking] = useState(false);
@@ -56,7 +57,7 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
   function start() {
     setPhase("step");
     setIndex(0);
-    setFields({});
+    setFields(lesson.initialFields ?? {});
     setWrong(0);
     stepShownAt.current = Date.now();
     log("start", 0);
@@ -71,7 +72,9 @@ export function LessonPlayer({ lessonId }: { lessonId: string }) {
       const n = wrong + 1;
       setWrong(n);
       log("wrong");
-      say(n >= 2 ? t(step.hint, lang) : t(ui.wrongTap, lang));
+      // A trap is a dangerous button (e.g. "Pay" on a fake request): explain exactly why.
+      const trap = step.traps?.[id];
+      say(trap ? t(trap, lang) : n >= 2 ? t(step.hint, lang) : t(ui.wrongTap, lang));
       return;
     }
     if (needsUnmet) {

@@ -4,9 +4,9 @@ Many older people are scared of everyday apps. *What if I tap the wrong thing an
 Saathi ("companion") gives them **practice copies** of the apps they're afraid of, with fake people
 and fake money. A patient AI companion talks them through every step, out loud, in their language.
 
-- **Guided lessons:** send a message, make a video call, pay with UPI, book a cab, order medicines. The next button glows, and a wrong tap gets *"That's okay, nothing happened."*
+- **12 guided lessons in 4 groups:** talk to family (send a message, make and answer a video call, send a voice note), money (pay with UPI, scan a QR code, pay the electricity bill, spot a fake payment request), daily needs (book a cab, order medicines), and staying safe (spot the scam, block and report a scam number and call 1930). The next button glows, a wrong tap gets *"That's okay, nothing happened."*, and tapping a dangerous button (like *Pay* on a fake request) explains exactly why it's a trap.
 - **Ask Saathi:** tap the mic and ask anything ("what is a UPI PIN?"). The answer is grounded in what's on screen right now.
-- **Spot the scam:** a quiz with real-world style KYC, OTP and "new number" tricks.
+- **Spot the scam:** a 9-message quiz: KYC links, "new number", KBC lottery, fake "digital arrest" police calls, AnyDesk customer care, forwarded WhatsApp codes, electricity disconnection threats.
 - **Is this message safe?** Paste a real message you got. Rules catch the red flags, and Gemma explains them kindly.
 - **English and Hindi**, large text, one action per screen, no timeouts, installable as a PWA.
 

@@ -1,17 +1,31 @@
 "use client";
 
 import Link from "next/link";
-import { lessons } from "@/lessons";
-import { t, ui } from "@/lib/i18n";
+import { lessons, type Category } from "@/lessons";
+import { t, ui, type Text } from "@/lib/i18n";
 import { useAppState } from "./AppState";
 import { Shell } from "./Shell";
 
+const SECTIONS: { id: Category; title: Text }[] = [
+  { id: "family", title: { en: "👨‍👩‍👧 Talk to family", hi: "👨‍👩‍👧 परिवार से बात" } },
+  { id: "money", title: { en: "💰 Money", hi: "💰 पैसे" } },
+  { id: "daily", title: { en: "🏠 Daily needs", hi: "🏠 रोज़ की ज़रूरतें" } },
+  { id: "safety", title: { en: "🛡️ Stay safe", hi: "🛡️ सुरक्षित रहें" } },
+];
+
+type Tile = { href: string; id: string; emoji: string; title: string };
+
 export function Home() {
   const { lang, completed } = useAppState();
-  const tiles = [
-    ...lessons.map((l) => ({ href: `/learn/${l.id}`, id: l.id, emoji: l.emoji, title: t(l.title, lang) })),
-    { href: "/scams", id: "spot-scam", emoji: "🛡️", title: lang === "hi" ? "धोखा पहचानें" : "Spot the scam" },
-  ];
+  const tilesFor = (category: Category): Tile[] => {
+    const tiles = lessons
+      .filter((l) => l.category === category)
+      .map((l) => ({ href: `/learn/${l.id}`, id: l.id, emoji: l.emoji, title: t(l.title, lang) }));
+    if (category === "safety") {
+      tiles.unshift({ href: "/scams", id: "spot-scam", emoji: "🔎", title: lang === "hi" ? "धोखा पहचानें" : "Spot the scam" });
+    }
+    return tiles;
+  };
 
   return (
     <Shell showHome={false}>
@@ -21,23 +35,28 @@ export function Home() {
           <p className="mt-2 text-xl leading-snug text-slate-700">{t(ui.tagline, lang)}</p>
         </header>
 
-        <div className="grid grid-cols-2 gap-4">
-          {tiles.map((tile) => (
-            <Link
-              key={tile.id}
-              href={tile.href}
-              className="relative flex aspect-square flex-col items-center justify-center gap-2 rounded-3xl bg-white p-3 text-center shadow-sm active:bg-slate-100"
-            >
-              {completed.includes(tile.id) && (
-                <span className="absolute right-3 top-3 rounded-full bg-green-600 px-2 text-lg text-white" aria-label="done">
-                  ✓
-                </span>
-              )}
-              <span className="text-6xl">{tile.emoji}</span>
-              <span className="text-xl font-bold text-slate-800">{tile.title}</span>
-            </Link>
-          ))}
-        </div>
+        {SECTIONS.map((section) => (
+          <section key={section.id} className="flex flex-col gap-3">
+            <h2 className="text-2xl font-bold text-slate-800">{t(section.title, lang)}</h2>
+            <div className="grid grid-cols-2 gap-3">
+              {tilesFor(section.id).map((tile) => (
+                <Link
+                  key={tile.id}
+                  href={tile.href}
+                  className="relative flex min-h-36 flex-col items-center justify-center gap-2 rounded-3xl bg-white p-3 text-center shadow-sm active:bg-slate-100"
+                >
+                  {completed.includes(tile.id) && (
+                    <span className="absolute right-3 top-3 rounded-full bg-green-600 px-2 text-lg text-white" aria-label="done">
+                      ✓
+                    </span>
+                  )}
+                  <span className="text-5xl">{tile.emoji}</span>
+                  <span className="text-lg font-bold leading-tight text-slate-800">{tile.title}</span>
+                </Link>
+              ))}
+            </div>
+          </section>
+        ))}
 
         <Link href="/check" className="flex items-center justify-center gap-3 rounded-3xl bg-teal-600 p-5 text-2xl font-bold text-white shadow-sm">
           🔍 {t(ui.checkTitle, lang)}

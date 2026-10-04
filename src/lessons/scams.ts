@@ -85,4 +85,40 @@ export const scamCards: ScamCard[] = [
       hi: "असली पुलिस कभी वीडियो कॉल पर गिरफ़्तार नहीं करती और फ़ोन पर पैसे नहीं माँगती। 'डिजिटल अरेस्ट' जैसी कोई चीज़ नहीं होती। फ़ोन काटिए और परिवार को या 112 पर कॉल कीजिए।",
     },
   },
+  {
+    from: "+91 80xxx 12x55",
+    body: {
+      en: "Hello, I am calling from your bank's customer care. Someone is using your card. To stop it, install AnyDesk from the Play Store and tell me the code on your screen.",
+      hi: "नमस्ते, मैं आपके बैंक के कस्टमर केयर से बोल रहा हूँ। कोई आपका कार्ड इस्तेमाल कर रहा है। रोकने के लिए Play Store से AnyDesk डाउनलोड कीजिए और स्क्रीन पर आया कोड बताइए।",
+    },
+    isScam: true,
+    why: {
+      en: "AnyDesk lets a stranger control your phone. Real bank staff never ask you to install an app. Only call the helpline printed on the back of your card, not a number from Google.",
+      hi: "AnyDesk से कोई अनजान आपका फ़ोन चला सकता है। असली बैंक वाले कभी ऐप डाउनलोड करने को नहीं कहते। सिर्फ़ अपने कार्ड के पीछे लिखे नंबर पर फ़ोन कीजिए, Google पर मिले नंबर पर नहीं।",
+    },
+  },
+  {
+    from: "+91 90xxx 66x31",
+    body: {
+      en: "Hi Aunty, I sent my 6-digit WhatsApp code to your number by mistake. Please forward it to me, it is urgent!",
+      hi: "नमस्ते आंटी, मैंने गलती से अपना 6 अंकों का WhatsApp कोड आपके नंबर पर भेज दिया। कृपया मुझे वह फ़ॉरवर्ड कर दीजिए, बहुत ज़रूरी है!",
+    },
+    isScam: true,
+    why: {
+      en: "That code is for YOUR WhatsApp. If you send it, they take over your account and message your family asking for money. Never forward any code.",
+      hi: "वह कोड आपके WhatsApp का है। अगर आपने भेज दिया, तो वे आपका अकाउंट ले लेंगे और आपके परिवार से पैसे माँगेंगे। कोई भी कोड कभी फ़ॉरवर्ड मत कीजिए।",
+    },
+  },
+  {
+    from: "+91 70xxx 98x02",
+    body: {
+      en: "Dear consumer, your electricity will be disconnected tonight at 9:30 PM because your last bill was not updated. Call our officer immediately on 98xxx xxx77.",
+      hi: "प्रिय उपभोक्ता, आपका पिछला बिल अपडेट नहीं हुआ है, इसलिए आज रात 9:30 बजे आपकी बिजली काट दी जाएगी। तुरंत हमारे अधिकारी को 98xxx xxx77 पर फ़ोन करें।",
+    },
+    isScam: true,
+    why: {
+      en: "The electricity office does not send threats from a personal mobile number. Check your bill inside your payment app, or call the number printed on your paper bill.",
+      hi: "बिजली विभाग किसी निजी मोबाइल नंबर से धमकी नहीं भेजता। अपना बिल पेमेंट ऐप के अंदर देखिए, या अपने काग़ज़ वाले बिल पर लिखे नंबर पर फ़ोन कीजिए।",
+    },
+  },
 ];

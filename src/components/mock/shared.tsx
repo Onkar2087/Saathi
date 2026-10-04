@@ -66,7 +66,7 @@ export function useScrollToHighlight(highlight: string | null) {
     if (!highlight) return;
     ref.current
       ?.querySelector(`[data-id="${highlight}"]`)
-      ?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      ?.scrollIntoView({ behavior: "instant", block: "nearest" });
   }, [highlight]);
   return ref;
 }

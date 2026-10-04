@@ -13,5 +13,13 @@ export const helpNotes: { id: string; text: string }[] = [
   { id: "screen-share", text: "Never install apps like AnyDesk or TeamViewer because a caller asked. They let strangers control your phone." },
   { id: "links", text: "Do not tap links in messages from unknown numbers. Real banks and companies do not send prize or KYC links." },
   { id: "fake-police", text: "Police, CBI or customs never arrest anyone over a phone or video call and never ask for money to close a case. A 'digital arrest' does not exist. Hang up, do not pay, and call family or 112." },
+  { id: "collect-request", text: "A UPI 'collect request' is someone ASKING you for money. If you approve it and enter your PIN, money leaves your account. Scammers label it 'refund' or 'cashback'. Decline requests from people you don't know." },
+  { id: "qr-pay", text: "Scanning a QR code is only for paying. Before paying, check the name shown matches the shop. Nobody needs you to scan a QR code to receive money." },
+  { id: "bills-in-app", text: "Pay electricity, gas and phone bills only inside your payment app or the official company app. Never pay through a link or a phone number sent by SMS." },
+  { id: "helpline-1930", text: "If you are cheated online or shared bank details, call 1930, the National Cyber Fraud Helpline, as fast as possible, or report at cybercrime.gov.in. Block the scam number from your recent calls." },
+  { id: "whatsapp-code", text: "Never forward a WhatsApp or SMS verification code to anyone, even if they say they sent it by mistake. It lets them take over your account." },
+  { id: "customer-care", text: "Only call the helpline printed on your card, passbook or bill. Fake customer care numbers appear on Google. Real staff never ask you to install AnyDesk or similar apps." },
+  { id: "answer-call", text: "To answer a call, tap or slide the green button. The red button cuts the call. To send a voice message, press and hold the microphone while you speak, then let go." },
+  { id: "ride-otp", text: "A cab ride OTP is the only OTP you may say aloud, and only to the driver after you are inside the cab." },
   { id: "balance", text: "Checking your balance in a UPI app is safe. It needs your PIN, but no money moves." },
 ];
