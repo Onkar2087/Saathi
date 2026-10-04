@@ -1,5 +1,7 @@
 # Saathi — practice phone apps where nothing can go wrong
 
+**🔗 Live app:** https://saathi-8w8q.onrender.com (free plan, so give it ~30 seconds to wake up) · **▶️ Demo video:** https://youtu.be/ztVQy1VFQ0g
+
 Many older people are scared of everyday apps. *What if I tap the wrong thing and lose money?*
 Saathi ("companion") gives them **practice copies** of the apps they're afraid of, with fake people
 and fake money. A patient AI companion talks them through every step, out loud, in their language.
